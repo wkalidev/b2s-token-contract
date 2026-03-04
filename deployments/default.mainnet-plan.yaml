@@ -1,0 +1,38 @@
+---
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: "https://api.mainnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: b2s-governance
+            expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
+            cost: 69920
+            path: "contracts\\b2s-governance.clar"
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
+    - id: 1
+      transactions:
+        - contract-publish:
+            contract-name: b2s-liquidity-pool
+            expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
+            cost: 69920
+            path: "contracts\\b2s-liquidity-pool.clar"
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
+    - id: 2
+      transactions:
+        - contract-publish:
+            contract-name: b2s-rewards-distributor
+            expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
+            cost: 69920
+            path: "contracts\\b2s-rewards-distributor.clar"
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"

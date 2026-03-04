@@ -38,4 +38,4 @@ costs-reports/
 deployments/history/
 
 # OS
-Thumbs.db
+settings/Mainnet.toml
