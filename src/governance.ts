@@ -80,7 +80,7 @@ import {
         postConditionMode: PostConditionMode.Allow,
         fee: opts.fee ?? 2000n,
       });
-      await broadcastTransaction({ transaction: tx, network: this.network });
+      await broadcastTransaction(tx, this.network);
       return tx;
     }
   

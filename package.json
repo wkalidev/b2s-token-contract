@@ -1,0 +1,19 @@
+{
+    "name": "@wkalidev/b2s-sdk",
+    "version": "1.0.0",
+    "description": "SDK for Base2Stacks $B2S token on Stacks blockchain",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsc",
+      "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+      "@stacks/transactions": "^6.16.0",
+      "@stacks/network": "^6.16.0"
+    },
+    "devDependencies": {
+      "typescript": "^5.3.0",
+      "@types/node": "^20.0.0"
+    }
+  }
