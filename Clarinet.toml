@@ -14,3 +14,8 @@ epoch = 2.5
 [repl]
 costs_version = 2
 parser_version = 2
+
+[contracts.b2s-prediction-market]
+path = "contracts/b2s-prediction-market.clar"
+clarity_version = 2
+epoch = "2.5"
