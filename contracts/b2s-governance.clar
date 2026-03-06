@@ -89,6 +89,7 @@
     ;; Checks
     (asserts! (> voter-power u0) err-insufficient-stake)
     (asserts! (is-none (map-get? votes vote-key)) err-already-voted)
+    (asserts! (>= block-height (get start-block proposal)) err-voting-closed) ;; Ensuring voting only happens after start-block
     (asserts! (<= block-height (get end-block proposal)) err-voting-closed)
     
     ;; Record vote
