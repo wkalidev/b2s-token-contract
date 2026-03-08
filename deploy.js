@@ -13,7 +13,9 @@ const API = 'https://api.hiro.so';
 const CONTRACTS = [
   // { name: 'b2s-governance',          path: './contracts/b2s-governance.clar' },
   //{ name: 'b2s-liquidity-pool-v5',   path: './contracts/b2s-liquidity-pool.clar' },
-   { name: 'b2s-prediction-market', path: './contracts/b2s-prediction-market.clar' },
+  //{ name: 'b2s-prediction-market', path: './contracts/b2s-prediction-market.clar' },
+   { name: 'b2s-badges',      path: './contracts/b2s-badges.clar' },
+   { name: 'b2s-marketplace', path: './contracts/b2s-marketplace.clar' },
 ];
 
 // ---------------------------------------------------------------------------
