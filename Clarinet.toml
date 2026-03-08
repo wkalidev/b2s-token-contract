@@ -19,3 +19,23 @@ parser_version = 2
 path = "contracts/b2s-prediction-market.clar"
 clarity_version = 2
 epoch = "2.5"
+
+[contracts.b2s-staking-vault]
+path = "contracts/b2s-staking-vault.clar"
+clarity_version = 2
+epoch = "2.5"
+
+[contracts.b2s-airdrop]
+path = "contracts/b2s-airdrop.clar"
+clarity_version = 2
+epoch = "2.5"
+
+[contracts.b2s-price-oracle]
+path = "contracts/b2s-price-oracle.clar"
+clarity_version = 2
+epoch = "2.5"
+
+[contracts.b2s-liquidity-pool-v6]
+path = "contracts/b2s-liquidity-pool-v6.clar"
+clarity_version = 2
+epoch = "2.5"
