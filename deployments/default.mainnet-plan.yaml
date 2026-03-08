@@ -10,42 +10,42 @@ plan:
       transactions:
         - contract-publish:
             contract-name: b2s-airdrop
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 12620
             path: contracts/b2s-airdrop.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: b2s-liquidity-pool-v6
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 58490
             path: contracts/b2s-liquidity-pool-v6.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: b2s-token
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 69920
             path: contracts/b2s-token.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: b2s-prediction-market
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 62340
             path: contracts/b2s-prediction-market.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: b2s-price-oracle
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 18710
             path: contracts/b2s-price-oracle.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: b2s-staking-vault
-            expected-sender: SP2CBQS4XC6WVBH3W2ENHFJNN3N326YYDH7T09FTB
+            expected-sender: SPP0FAEDZ228RMAASJGTETSHDXS3T9KNBW8GKPF3
             cost: 17420
             path: contracts/b2s-staking-vault.clar
             anchor-block-only: true
