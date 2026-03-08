@@ -1,4 +1,6 @@
-(define-constant ERR-ZERO (err u100))
+node -e "
+const fs = require('fs');
+const code = \`(define-constant ERR-ZERO (err u100))
 (define-constant ERR-NOT-FOUND (err u101))
 (define-constant ERR-LOCKED (err u102))
 (define-constant B2S 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token)
@@ -11,13 +13,13 @@
   (begin
     (asserts! (> amount u0) ERR-ZERO)
     (try! (contract-call? B2S transfer amount tx-sender (as-contract tx-sender) none))
-    (map-set vaults tx-sender { amount: amount, locked-at: stacks-block-height, lock-blocks: lock-blocks, multiplier: (get-multiplier lock-blocks) })
+    (map-set vaults tx-sender { amount: amount, locked-at: block-height, lock-blocks: lock-blocks, multiplier: (get-multiplier lock-blocks) })
     (var-set total-staked (+ (var-get total-staked) amount))
     (var-set total-vaults (+ (var-get total-vaults) u1))
     (ok true)))
 (define-public (unstake)
   (let ((vault (unwrap! (map-get? vaults tx-sender) ERR-NOT-FOUND)))
-    (asserts! (>= stacks-block-height (+ (get locked-at vault) (get lock-blocks vault))) ERR-LOCKED)
+    (asserts! (>= block-height (+ (get locked-at vault) (get lock-blocks vault))) ERR-LOCKED)
     (try! (as-contract (contract-call? B2S transfer (get amount vault) tx-sender tx-sender none)))
     (var-set total-staked (- (var-get total-staked) (get amount vault)))
     (map-delete vaults tx-sender)
@@ -25,4 +27,7 @@
 (define-read-only (get-vault (user principal)) (ok (map-get? vaults user)))
 (define-read-only (get-stats) (ok { total-staked: (var-get total-staked), total-vaults: (var-get total-vaults) }))
 (define-read-only (get-unlock-block (user principal))
-  (match (map-get? vaults user) v (ok (+ (get locked-at v) (get lock-blocks v))) (err u101)))
+  (match (map-get? vaults user) v (ok (+ (get locked-at v) (get lock-blocks v))) (err u101)))\`;
+fs.writeFileSync('contracts/b2s-staking-vault-v2.clar', code, 'ascii');
+console.log('Done');
+"
