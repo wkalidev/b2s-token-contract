@@ -1,5 +1,5 @@
 {
-  "name": "@b2s/contracts",
+  "name": "@wkalidev/b2s-contracts",
   "version": "1.0.0",
   "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
   "main": "index.js",
@@ -11,7 +11,14 @@
       "require": "./index.js"
     }
   },
-  "keywords": ["stacks", "clarity", "defi", "b2s", "base2stacks", "sip010"],
+  "keywords": [
+    "stacks",
+    "clarity",
+    "defi",
+    "b2s",
+    "base2stacks",
+    "sip010"
+  ],
   "author": "wkalidev",
   "license": "MIT",
   "repository": {
@@ -19,5 +26,11 @@
     "url": "https://github.com/wkalidev/b2s-token-contract.git"
   },
   "homepage": "https://base2stacks-tracker.vercel.app",
-  "files": ["index.js", "index.mjs", "index.d.ts", "contracts/", "README.md"]
+  "files": [
+    "index.js",
+    "index.mjs",
+    "index.d.ts",
+    "contracts/",
+    "README.md"
+  ]
 }

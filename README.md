@@ -5,7 +5,7 @@ Official Clarity smart contracts for the Base2Stacks Bridge Tracker ecosystem �
 [![Mainnet](https://img.shields.io/badge/Deployed-Stacks%20Mainnet-green)](https://explorer.hiro.so/address/SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96?chain=mainnet)
 [![Language](https://img.shields.io/badge/Language-Clarity-blue)](https://clarity-lang.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](./LICENSE)
-[![npm](https://img.shields.io/npm/v/@b2s/contracts)](https://www.npmjs.com/package/@b2s/contracts)
+[![npm](https://img.shields.io/npm/v/@wkalidev/b2s-contracts)](https://www.npmjs.com/package/@wkalidev/b2s-contracts)
 [![Builder Rewards](https://img.shields.io/badge/Stacks-Builder%20Rewards%202026-orange)](https://stacks.org)
 
 ## 📋 Overview
@@ -43,15 +43,18 @@ The $B2S token powers the Base2Stacks DeFi ecosystem with:
 ## 📦 NPM Package
 
 ```bash
-npm install @b2s/contracts
+npm install @wkalidev/b2s-contracts
 ```
 
 ```javascript
-import { CONTRACT_ADDRESSES, getContractId } from '@b2s/contracts';
+import { CONTRACT_ADDRESSES, getContractId } from '@wkalidev/b2s-contracts';
 
 // Get contract address
 const tokenContract = getContractId('b2s-token');
 // => 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token'
+
+// All contracts
+console.log(CONTRACT_ADDRESSES);
 ```
 
 ## 💡 Features
@@ -187,7 +190,7 @@ MIT License — See [LICENSE](./LICENSE)
 
 - 🌐 [Live App](https://base2stacks-tracker.vercel.app)
 - 📊 [Explorer — Deployer Address](https://explorer.hiro.so/address/SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96?chain=mainnet)
-- 📦 [NPM Package](https://www.npmjs.com/package/@b2s/contracts)
+- 📦 [NPM Package](https://www.npmjs.com/package/@wkalidev/b2s-contracts)
 - 🐦 [Twitter](https://twitter.com/willycodexwar)
 - 🟪 [Farcaster](https://warpcast.com/willywarrior)
 - 🏆 [Stacks Builder Rewards](https://stacks.org)
