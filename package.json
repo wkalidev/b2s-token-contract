@@ -1,21 +1,23 @@
 {
-    "name": "@wkalidev/b2s-sdk",
-    "version": "1.0.0",
-    "description": "SDK for Base2Stacks $B2S token on Stacks blockchain",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "prepublishOnly": "npm run build"
-    },
-    "dependencies": {
-        "@stacks/network": "^6.17.0",
-        "@stacks/transactions": "^6.17.0",
-        "@stacks/wallet-sdk": "^7.2.0",
-        "dotenv": "^17.3.1"
-    },
-    "devDependencies": {
-        "@types/node": "^20.0.0",
-        "typescript": "^5.3.0"
+  "name": "@b2s/contracts",
+  "version": "1.0.0",
+  "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
+  "main": "index.js",
+  "module": "index.mjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
     }
+  },
+  "keywords": ["stacks", "clarity", "defi", "b2s", "base2stacks", "sip010"],
+  "author": "wkalidev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wkalidev/b2s-token-contract.git"
+  },
+  "homepage": "https://base2stacks-tracker.vercel.app",
+  "files": ["index.js", "index.mjs", "index.d.ts", "contracts/", "README.md"]
 }
