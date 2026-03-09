@@ -5,6 +5,7 @@
 (define-constant ERR-DEADLINE (err u103))
 
 (define-constant B2S 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token)
+(define-constant CONTRACT-OWNER tx-sender)
 
 (define-map claimed principal bool)
 (define-map allocations principal uint)
@@ -88,4 +89,4 @@
 
 (define-read-only (get-stats)
   (ok { distributed: (var-get total-distributed) })
-)
+) 
