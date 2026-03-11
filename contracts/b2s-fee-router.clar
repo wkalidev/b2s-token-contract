@@ -2,7 +2,11 @@
 ;; B2S Fee Router - Bridge Fee Collector
 ;; Contract: b2s-fee-router
 ;; Author: Wkalidev (zcodebase)
+;; Uses: stacks-clarity-toolkit/toolkit-math
 ;; ============================================================
+
+;; Toolkit import
+(define-constant TOOLKIT 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.toolkit-math)
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
@@ -45,19 +49,21 @@
     volume:       (default-to u0 (map-get? user-volume user)),
   })
 
+;; calculate-fee — now uses toolkit basis-points (safe, no overflow)
 (define-read-only (calculate-fee (amount uint))
-  (/ (* amount (var-get fee-bps)) u10000))
+  (unwrap-panic (contract-call? TOOLKIT basis-points amount (var-get fee-bps)))
+)
 
 (define-read-only (get-treasury) (var-get treasury-address))
 (define-read-only (get-rewards-pool) (var-get rewards-pool-address))
 
-;; record-bridge: user pays fee when bridging
+;; record-bridge — uses toolkit for all fee math
 (define-public (record-bridge (amount uint))
   (let (
     (sender tx-sender)
-    (fee (calculate-fee amount))
-    (treasury-cut (/ (* fee (var-get treasury-share-bps)) u10000))
-    (rewards-cut (- fee treasury-cut))
+    (fee          (unwrap! (contract-call? TOOLKIT basis-points amount (var-get fee-bps)) ERR-ZERO-AMOUNT))
+    (treasury-cut (unwrap! (contract-call? TOOLKIT basis-points fee (var-get treasury-share-bps)) ERR-ZERO-AMOUNT))
+    (rewards-cut  (unwrap! (contract-call? TOOLKIT safe-sub fee treasury-cut) ERR-ZERO-AMOUNT))
   )
     (asserts! (not (var-get paused)) ERR-PAUSED)
     (asserts! (> amount u0) ERR-ZERO-AMOUNT)
