@@ -1,3 +1,4 @@
+;; B2S Prediction Market — binary prediction market, 5 categories, 2% platform fee, on-chain resolution
 ;; B2S Prediction Market
 ;; Phase 1: Owner resolve -> Phase 2: DAO vote
 

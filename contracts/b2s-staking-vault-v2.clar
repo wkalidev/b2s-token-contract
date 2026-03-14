@@ -1,3 +1,4 @@
+;; B2S Staking Vault v2 — stake $B2S tokens, 12.5% base APY, multipliers 1x/1.5x/2x/3x, no lock penalties
 ;; ============================================================
 ;; B2S Staking Vault v2
 ;; Contract: b2s-staking-vault-v2

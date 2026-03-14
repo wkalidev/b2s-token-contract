@@ -1,3 +1,4 @@
+;; B2S Fee Router — bridge fee collector, 0.3% fee on all bridges, 50% treasury / 50% stakers
 ;; ============================================================
 ;; B2S Fee Router - Bridge Fee Collector
 ;; Contract: b2s-fee-router
