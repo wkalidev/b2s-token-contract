@@ -2,9 +2,13 @@
 name = "simnet"
 
 [accounts.deployer]
-mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
-balance = 100_000_000_000_000
+mnemonic = "fetch outside black test wash cover just actual execute nice door want"
+balance = 100000000000000
 
 [accounts.wallet_1]
-mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
-balance = 100_000_000_000_000
+mnemonic = "spoil sock coyote include verify comic jacket gain beauty tank flush victory"
+balance = 100000000000000
+
+[accounts.wallet_2]
+mnemonic = "sorry oak cruel install wish address banner chimney token push shed solar"
+balance = 100000000000000

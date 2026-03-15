@@ -1,6 +1,6 @@
 {
   "name": "@wkalidev/b2s-contracts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
   "main": "index.js",
   "module": "index.mjs",
@@ -17,13 +17,16 @@
     "defi",
     "b2s",
     "base2stacks",
-    "sip010"
+    "sip010",
+    "smart-contracts",
+    "bitcoin",
+    "web3"
   ],
   "author": "wkalidev",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wkalidev/b2s-token-contract.git"
+    "url": "git+https://github.com/wkalidev/b2s-token-contract.git"
   },
   "homepage": "https://base2stacks-tracker.vercel.app",
   "files": [
@@ -32,5 +35,28 @@
     "index.d.ts",
     "contracts/",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "@stacks/transactions": "^7.3.1",
+    "c32check": "^2.0.0",
+    "cross-fetch": "^3.2.0"
+  },
+  "devDependencies": {
+    "@hirosystems/clarinet-sdk": "^3.8.1",
+    "@types/node": "^25.5.0",
+    "vitest": "^4.1.0",
+    "vite": "^8.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "types": "./index.d.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "bugs": {
+    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
+  }
 }
