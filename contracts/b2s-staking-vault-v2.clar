@@ -1,4 +1,4 @@
-;; B2S Staking Vault v2 — stake $B2S tokens, 12.5% base APY, multipliers 1x/1.5x/2x/3x, no lock penalties
+;; B2S Staking Vault v2 — stake $B2S tokens, 12.5% base APY, multipliers 1x/1.5x/2x/3x
 ;; ============================================================
 ;; B2S Staking Vault v2
 ;; Contract: b2s-staking-vault-v2
@@ -14,6 +14,7 @@
 (define-constant ERR-ZERO      (err u100))
 (define-constant ERR-NOT-FOUND (err u101))
 (define-constant ERR-LOCKED    (err u102))
+(define-constant ERR-UNAUTHORIZED (err u403))
 
 ;; APY multipliers in basis points (100 = 1x, 150 = 1.5x, 200 = 2x, 300 = 3x)
 (define-constant MULTIPLIER-1X   u100)
@@ -26,6 +27,9 @@
 (define-constant LOCK-2W  u1050)
 (define-constant LOCK-1M  u2100)
 
+;; Contract owner
+(define-data-var contract-owner principal tx-sender)
+
 ;; Maps & vars
 (define-map vaults principal {
   amount:      uint,
@@ -33,8 +37,17 @@
   lock-blocks: uint,
   multiplier:  uint
 })
+
 (define-data-var total-staked uint u0)
 (define-data-var total-vaults uint u0)
+
+;; Minimum rewards required to auto-compound (micro-tokens, 6 decimals)
+;; Default = 1 B2S
+(define-data-var compound-threshold uint u1000000)
+
+;; ============================================================
+;; PRIVATE FUNCTIONS
+;; ============================================================
 
 ;; Get APY multiplier based on lock duration
 (define-private (get-multiplier (blocks uint))
@@ -47,63 +60,168 @@
   )
 )
 
-;; Calculate pending rewards using toolkit percentage
-;; Base APY = 12.5% = 1250 bps, then scaled by multiplier/100
+;; ============================================================
+;; REWARD CALCULATION
+;; ============================================================
+
+;; Base APY = 12.5% = 1250 bps
 (define-read-only (get-pending-rewards (user principal))
   (match (map-get? vaults user)
     vault
     (let (
       (elapsed    (- block-height (get locked-at vault)))
-      (base-rate  u1250) ;; 12.5% APY in bps
+      (base-rate  u1250)
       (multiplier (get multiplier vault))
-      ;; effective-rate = base-rate * multiplier / 100
-      (effective-rate (unwrap-panic (contract-call? TOOLKIT safe-div
-                        (unwrap-panic (contract-call? TOOLKIT safe-mul base-rate multiplier))
-                        u100)))
-      ;; rewards = amount * effective-rate * elapsed / (10000 * 52560)
-      ;; 52560 = ~blocks per year at 10min/block
-      (rewards (unwrap-panic (contract-call? TOOLKIT safe-div
-                  (unwrap-panic (contract-call? TOOLKIT safe-mul
-                    (unwrap-panic (contract-call? TOOLKIT safe-mul (get amount vault) effective-rate))
-                    elapsed))
-                  u525600000)))
+
+      (effective-rate
+        (unwrap-panic
+          (contract-call? TOOLKIT safe-div
+            (unwrap-panic (contract-call? TOOLKIT safe-mul base-rate multiplier))
+            u100)))
+
+      ;; rewards formula
+      (rewards
+        (unwrap-panic
+          (contract-call? TOOLKIT safe-div
+            (unwrap-panic
+              (contract-call? TOOLKIT safe-mul
+                (unwrap-panic
+                  (contract-call? TOOLKIT safe-mul
+                    (get amount vault)
+                    effective-rate))
+                elapsed))
+            u525600000)))
     )
       (ok rewards)
     )
-    (err u101)
+    ERR-NOT-FOUND
   )
 )
 
-;; Stake tokens
+;; ============================================================
+;; ADMIN
+;; ============================================================
+
+(define-read-only (get-compound-threshold)
+  (ok (var-get compound-threshold))
+)
+
+(define-public (set-compound-threshold (amount uint))
+  (begin
+    (asserts! (is-eq tx-sender (var-get contract-owner)) ERR-UNAUTHORIZED)
+    (asserts! (> amount u0) ERR-ZERO)
+
+    (var-set compound-threshold amount)
+
+    (ok amount)
+  )
+)
+
+;; ============================================================
+;; STAKING
+;; ============================================================
+
 (define-public (stake (amount uint) (lock-blocks uint))
   (begin
     (asserts! (> amount u0) ERR-ZERO)
+
     (try! (contract-call? B2S transfer amount tx-sender (as-contract tx-sender) none))
+
     (map-set vaults tx-sender {
       amount:      amount,
       locked-at:   block-height,
       lock-blocks: lock-blocks,
       multiplier:  (get-multiplier lock-blocks)
     })
-    (var-set total-staked (unwrap-panic (contract-call? TOOLKIT safe-add (var-get total-staked) amount)))
+
+    (var-set total-staked
+      (unwrap-panic
+        (contract-call? TOOLKIT safe-add
+          (var-get total-staked)
+          amount)))
+
     (var-set total-vaults (+ (var-get total-vaults) u1))
+
     (ok true)
   )
 )
 
-;; Unstake tokens
+;; ============================================================
+;; UNSTAKE
+;; ============================================================
+
 (define-public (unstake)
   (let ((vault (unwrap! (map-get? vaults tx-sender) ERR-NOT-FOUND)))
-    (asserts! (>= block-height (+ (get locked-at vault) (get lock-blocks vault))) ERR-LOCKED)
-    (try! (as-contract (contract-call? B2S transfer (get amount vault) tx-sender tx-sender none)))
-    (var-set total-staked (unwrap-panic (contract-call? TOOLKIT safe-sub (var-get total-staked) (get amount vault))))
+
+    (asserts!
+      (>= block-height (+ (get locked-at vault) (get lock-blocks vault)))
+      ERR-LOCKED)
+
+    (try!
+      (as-contract
+        (contract-call? B2S transfer
+          (get amount vault)
+          tx-sender
+          tx-sender
+          none)))
+
+    (var-set total-staked
+      (unwrap-panic
+        (contract-call? TOOLKIT safe-sub
+          (var-get total-staked)
+          (get amount vault))))
+
     (map-delete vaults tx-sender)
+
     (ok (get amount vault))
   )
 )
 
-;; Read-only
-(define-read-only (get-vault (user principal)) (ok (map-get? vaults user)))
+;; ============================================================
+;; COMPOUND
+;; ============================================================
+
+(define-public (compound-rewards)
+
+  (let (
+        (pending (unwrap! (get-pending-rewards tx-sender) ERR-NOT-FOUND))
+        (threshold (var-get compound-threshold))
+        (vault (unwrap! (map-get? vaults tx-sender) ERR-NOT-FOUND))
+       )
+
+    (asserts! (>= pending threshold) ERR-NOT-FOUND)
+
+    (map-set vaults tx-sender {
+
+      amount:
+        (unwrap-panic
+          (contract-call? TOOLKIT safe-add
+            (get amount vault)
+            pending)),
+
+      locked-at:   (get locked-at vault),
+      lock-blocks: (get lock-blocks vault),
+      multiplier:  (get multiplier vault)
+
+    })
+
+    (var-set total-staked
+      (unwrap-panic
+        (contract-call? TOOLKIT safe-add
+          (var-get total-staked)
+          pending)))
+
+    (ok pending)
+  )
+)
+
+;; ============================================================
+;; READ ONLY
+;; ============================================================
+
+(define-read-only (get-vault (user principal))
+  (ok (map-get? vaults user))
+)
 
 (define-read-only (get-stats)
   (ok {
@@ -115,7 +233,7 @@
 (define-read-only (get-unlock-block (user principal))
   (match (map-get? vaults user)
     v (ok (+ (get locked-at v) (get lock-blocks v)))
-    (err u101)
+    ERR-NOT-FOUND
   )
 )
 
