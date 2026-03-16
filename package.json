@@ -1,6 +1,6 @@
 {
   "name": "@wkalidev/b2s-contracts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
   "main": "index.js",
   "module": "index.mjs",
