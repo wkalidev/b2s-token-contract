@@ -50,10 +50,13 @@
     volume:       (default-to u0 (map-get? user-volume user)),
   })
 
- 
-(define-read-only (calculate-fee (amount uint) (user principal))
+;; Backwards-compatible calculate-fee with optional user parameter
+;; Old callers: (calculate-fee u1000) - uses tx-sender
+;; New callers: (calculate-fee u1000 some-principal) - uses specified user
+(define-read-only (calculate-fee (amount uint) (user (optional principal)))
   (let (
-    (user-fee-bps (get-user-fee-bps user))
+    (actual-user (default-to tx-sender user))
+    (user-fee-bps (get-user-fee-bps actual-user))
   )
     (unwrap-panic (contract-call? TOOLKIT basis-points amount user-fee-bps))
   )
