@@ -50,19 +50,41 @@
     volume:       (default-to u0 (map-get? user-volume user)),
   })
 
-;; calculate-fee — now uses toolkit basis-points (safe, no overflow)
-(define-read-only (calculate-fee (amount uint))
-  (unwrap-panic (contract-call? TOOLKIT basis-points amount (var-get fee-bps)))
+;; Backwards-compatible calculate-fee with optional user parameter
+;; Old callers: (calculate-fee u1000) - uses tx-sender
+;; New callers: (calculate-fee u1000 some-principal) - uses specified user
+(define-read-only (calculate-fee (amount uint) (user (optional principal)))
+  (let (
+    (actual-user (default-to tx-sender user))
+    (user-fee-bps (get-user-fee-bps actual-user))
+  )
+    (unwrap-panic (contract-call? TOOLKIT basis-points amount user-fee-bps))
+  )
 )
 
 (define-read-only (get-treasury) (var-get treasury-address))
 (define-read-only (get-rewards-pool) (var-get rewards-pool-address))
 
+(define-read-only (get-user-fee-bps (user principal))
+  (let (
+    (volume (default-to u0 (map-get? user-volume user)))
+  )
+    (if (> volume u1000000000)   ;; high tier
+        u20                     ;; 0.2%
+        (if (> volume u100000000)
+            u25                 ;; 0.25%
+            (var-get fee-bps)   ;; default 0.3%
+        )
+    )
+  )
+)
+
 ;; record-bridge — uses toolkit for all fee math
 (define-public (record-bridge (amount uint))
   (let (
     (sender tx-sender)
-    (fee          (unwrap! (contract-call? TOOLKIT basis-points amount (var-get fee-bps)) ERR-ZERO-AMOUNT))
+    (user-fee-bps (get-user-fee-bps sender))
+    (fee (unwrap! (contract-call? TOOLKIT basis-points amount user-fee-bps) ERR-ZERO-AMOUNT))
     (treasury-cut (unwrap! (contract-call? TOOLKIT basis-points fee (var-get treasury-share-bps)) ERR-ZERO-AMOUNT))
     (rewards-cut  (unwrap! (contract-call? TOOLKIT safe-sub fee treasury-cut) ERR-ZERO-AMOUNT))
   )
