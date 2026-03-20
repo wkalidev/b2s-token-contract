@@ -1,2 +1,2 @@
 # Contributing
-Pull requests welcome!
+PRs welcome!
