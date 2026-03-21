@@ -118,4 +118,4 @@ MIT — See [LICENSE](./LICENSE)
 
 ---
 
-**Built for #StacksBuilderRewards March 2026 🏆**
+**Built for #StacksBuilderRewards March 2026 🏆**\n## Fee Router\n0.3% bridge fee — 50% treasury, 50% stakers
