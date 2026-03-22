@@ -1,5 +1,23 @@
-## v2.0.0 - Mainnet
-- b2s-token deployed SP936...ARQ96
-- b2s-governance deployed
-- b2s-liquidity-pool-v5 deployed
-- b2s-rewards-distributor-v3 deployed
+# Changelog
+
+## [1.1.0] - 2026-03-22
+
+### Added
+- GitHub Actions CI/CD pipeline
+- Release automation workflow
+- CODE_OF_CONDUCT.md
+- SECURITY.md
+- CONTRIBUTING.md
+- FUNDING.yml
+
+### Changed
+- Updated all references from testnet (ST936) to mainnet (SP936)
+- Fixed CONTRIBUTING.md links (branch main)
+- Corrected npm scope from @b2s/ to @wkalidev/
+
+## [1.0.0] - 2026-03-10
+
+### Added
+- Initial release
+- Core smart contracts on Stacks mainnet
+- MIT License
