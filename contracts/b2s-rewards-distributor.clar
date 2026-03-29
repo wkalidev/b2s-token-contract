@@ -120,6 +120,7 @@
       }))
 
       (var-set total-staked (+ (var-get total-staked) amount))
+      (emit-event "stake" staker amount)
       (ok amount)
     )
   )
@@ -138,7 +139,7 @@
 
     ;; TODO: transfer reward tokens to staker
     ;; (try! (as-contract (contract-call? .b2s-token transfer pending tx-sender staker none)))
-
+    (emit-event "claim" staker pending)
     (ok pending)
   )
 )
@@ -166,6 +167,7 @@
       }))
 
       (var-set total-staked (- (var-get total-staked) amount))
+      (emit-event "unstake" staker amount)
       (ok amount)
     )
   )
@@ -216,3 +218,6 @@
   (ok (/ (* (* amount (var-get base-apy)) (* days blocks-per-day))
          (* precision blocks-per-year)))
 )
+
+(define-private (emit-event (event-type (string-ascii 32)) (staker principal) (amount uint))
+  (print { "event": event-type, "staker": staker, "amount": amount }))
