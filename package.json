@@ -1,5 +1,5 @@
 {
-  "name": "@wkalidev/b2s-contracts",
+  "name": "@wkalidev/b2s-sdk",
   "version": "1.1.0",
   "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
   "main": "dist/contracts.cjs",
