@@ -1,16 +1,25 @@
-import { callReadOnlyFunction, cvToValue, uintCV, principalCV, stringAsciiCV, makeContractCall, broadcastTransaction, AnchorMode, PostConditionMode } from "@stacks/transactions"
-import { StacksMainnet } from "@stacks/network"
+import { 
+  fetchCallReadOnlyFunction, 
+  cvToValue, 
+  uintCV, 
+  principalCV, 
+  stringAsciiCV, 
+  makeContractCall, 
+  broadcastTransaction, 
+  PostConditionMode 
+} from "@stacks/transactions"
+import { STACKS_MAINNET } from "@stacks/network"
 import type { TxOptions } from "./token"
 
 export const FEE_ROUTER_CONTRACT = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-fee-router'
 
 export class FeeRouterClient {
-  private network = new StacksMainnet()
+  private network = STACKS_MAINNET
   private contractAddress = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96'
   private contractName = 'b2s-fee-router'
 
   async getTotalFeesCollected() {
-    const result = await callReadOnlyFunction({
+    const result = await fetchCallReadOnlyFunction({
       contractAddress: this.contractAddress,
       contractName: this.contractName,
       functionName: 'get-total-fees-collected',
@@ -40,11 +49,11 @@ export class FeeRouterClient {
       ],
       senderKey: opts.senderKey,
       network: this.network,
-      anchorMode: AnchorMode.Any,
+      // anchorMode supprimé — retiré dans @stacks/transactions v7+
       postConditionMode: PostConditionMode.Allow,
       fee: opts.fee ?? 2000n,
     })
-    await broadcastTransaction(tx, this.network)
+    await broadcastTransaction({ transaction: tx, network: this.network }) // network retiré — plus accepté en 2e argument
     return tx
   }
 }

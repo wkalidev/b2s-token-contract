@@ -1,15 +1,44 @@
 {
-  "name": "@wkalidev/b2s-sdk",
-  "version": "1.1.0",
-  "description": "Base2Stacks DeFi smart contract addresses and ABIs for Stacks Mainnet",
-  "main": "dist/contracts.cjs",
-  "module": "dist/contracts.js",
+  "name": "@wkalidev/b2s-contracts",
+  "version": "1.2.0",
+  "description": "$B2S Token — Smart Contracts & TypeScript SDK for Base2Stacks DeFi on Stacks mainnet",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    
+    },
+    "./contracts": {
+      "import": "./dist/contracts.js",
+      "require": "./dist/contracts.cjs",
+      "types": "./dist/contracts.d.ts"
+    },
+    "./helpers": {
+      "import": "./dist/helpers.js",
+      "require": "./dist/helpers.cjs",
+      "types": "./dist/helpers.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "types": "./dist/types.d.ts"
     }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts src/contracts.ts src/helpers.ts src/types.ts --format cjs,esm --dts --out-dir dist --clean",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "stacks",
@@ -20,7 +49,9 @@
     "sip010",
     "smart-contracts",
     "bitcoin",
-    "web3"
+    "web3",
+    "typescript",
+    "sdk"
   ],
   "author": "wkalidev",
   "license": "MIT",
@@ -29,36 +60,21 @@
     "url": "git+https://github.com/wkalidev/b2s-token-contract.git"
   },
   "homepage": "https://base2stacks-tracker.vercel.app",
-  "files": [
-    "index.js",
-    "index.mjs",
-    "index.d.ts",
-    "contracts/",
-    "README.md"
-  ],
+  "bugs": {
+    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
+  },
   "dependencies": {
     "@stacks/transactions": "^7.3.1",
-    "c32check": "^2.0.0"
+    "@stacks/network": "^7.3.1"
   },
   "devDependencies": {
     "@hirosystems/clarinet-sdk": "^3.8.1",
-    "@types/node": "^25.5.0",
-    "tsup": "^8.5.1",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.0",
-    "vitest": "^4.1.0"
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   },
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "build": "tsup src/contracts.ts src/helpers.ts src/types.ts --format cjs,esm --out-dir dist --no-dts"
-  },
-  "types": "./index.d.ts",
-  "directories": {
-    "doc": "docs",
-    "test": "tests"
-  },
-  "bugs": {
-    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
+  "peerDependencies": {
+    "@stacks/transactions": ">=6.0.0"
   }
 }

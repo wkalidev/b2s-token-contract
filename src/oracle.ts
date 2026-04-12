@@ -1,26 +1,31 @@
-import { callReadOnlyFunction, cvToValue, stringAsciiCV } from "@stacks/transactions"
-import { StacksMainnet } from "@stacks/network"
+/**
+ * OracleClient — b2s-price-oracle
+ * Compatible with @stacks/transactions v7+
+ */
 
-export const ORACLE_CONTRACT = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-price-oracle'
+import { fetchCallReadOnlyFunction, cvToValue, stringAsciiCV } from '@stacks/transactions'
+import { STACKS_MAINNET } from '@stacks/network'
+import { B2S_CONTRACT_ADDRESS } from './token'
+
+export const ORACLE_CONTRACT_NAME = 'b2s-price-oracle'
 
 export class OracleClient {
-  private network = new StacksMainnet()
+  private network = STACKS_MAINNET
 
   async getPrice(pair = 'STX-USD') {
-    const [address, name] = ORACLE_CONTRACT.split('.')
-    const result = await callReadOnlyFunction({
-      contractAddress: address,
-      contractName: name,
-      functionName: 'get-price',
-      functionArgs: [stringAsciiCV(pair)],
-      network: this.network,
-      senderAddress: address,
+    const result = await fetchCallReadOnlyFunction({
+      contractAddress: B2S_CONTRACT_ADDRESS,
+      contractName:    ORACLE_CONTRACT_NAME,
+      functionName:    'get-price',
+      functionArgs:    [stringAsciiCV(pair)],
+      network:         this.network,
+      senderAddress:   B2S_CONTRACT_ADDRESS,
     })
     const raw = cvToValue(result) as { price: bigint; decimals: bigint; block: bigint }
     return {
       pair,
-      price: Number(raw.price) / 1e6,
-      decimals: Number(raw.decimals),
+      price:           Number(raw.price) / 1e6,
+      decimals:        Number(raw.decimals),
       lastUpdateBlock: Number(raw.block),
     }
   }

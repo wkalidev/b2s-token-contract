@@ -10,18 +10,17 @@
  */
 
 import {
-    callReadOnlyFunction,
+    fetchCallReadOnlyFunction,
     makeContractCall,
     broadcastTransaction,
-    AnchorMode,
     uintCV,
     principalCV,
     boolCV,
     cvToValue,
     PostConditionMode,
-    type StacksTransaction,
+    type StacksTransactionWire,
   } from "@stacks/transactions";
-  import { StacksMainnet, StacksTestnet, type StacksNetwork } from "@stacks/network";
+  import { STACKS_MAINNET, STACKS_TESTNET } from "@stacks/network";
   import { B2S_CONTRACT_ADDRESS, type NetworkType, type TxOptions } from "./token";
   
   export const GOVERNANCE_CONTRACT_NAME = "b2s-governance";
@@ -47,18 +46,18 @@ import {
   }
   
   export class GovernanceClient {
-    private network: StacksNetwork;
+    private network: typeof STACKS_MAINNET | typeof STACKS_TESTNET;
     private contractAddress: string;
     private contractName: string;
   
     constructor(opts: { network?: NetworkType; contractAddress?: string } = {}) {
-      this.network = (opts.network ?? "mainnet") === "mainnet" ? new StacksMainnet() : new StacksTestnet();
+      this.network = (opts.network ?? "mainnet") === "mainnet" ? STACKS_MAINNET : STACKS_TESTNET;
       this.contractAddress = opts.contractAddress ?? B2S_CONTRACT_ADDRESS;
       this.contractName = GOVERNANCE_CONTRACT_NAME;
     }
   
     private async readOnly(fn: string, args: any[], sender: string) {
-      return callReadOnlyFunction({
+      return fetchCallReadOnlyFunction({
         contractAddress: this.contractAddress,
         contractName: this.contractName,
         functionName: fn,
@@ -68,7 +67,7 @@ import {
       });
     }
   
-    private async write(fn: string, args: any[], opts: TxOptions): Promise<StacksTransaction> {
+    private async write(fn: string, args: any[], opts: TxOptions): Promise<StacksTransactionWire> {
       const tx = await makeContractCall({
         contractAddress: this.contractAddress,
         contractName: this.contractName,
@@ -76,11 +75,11 @@ import {
         functionArgs: args,
         senderKey: opts.senderKey,
         network: this.network,
-        anchorMode: AnchorMode.Any,
+        // anchorMode supprimé — retiré dans @stacks/transactions v7+
         postConditionMode: PostConditionMode.Allow,
         fee: opts.fee ?? 2000n,
       });
-      await broadcastTransaction(tx, this.network);
+      await broadcastTransaction({ transaction: tx, network: this.network });
       return tx;
     }
   
