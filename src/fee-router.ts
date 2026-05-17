@@ -11,11 +11,11 @@ import {
 import { STACKS_MAINNET } from "@stacks/network"
 import type { TxOptions } from "./token"
 
-export const FEE_ROUTER_CONTRACT = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-fee-router'
+export const FEE_ROUTER_CONTRACT = 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-fee-router'
 
 export class FeeRouterClient {
   private network = STACKS_MAINNET
-  private contractAddress = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96'
+  private contractAddress = 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N'
   private contractName = 'b2s-fee-router'
 
   async getTotalFeesCollected() {

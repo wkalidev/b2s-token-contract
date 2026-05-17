@@ -1,16 +1,15 @@
-export const DEPLOYER = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96'
+export const DEPLOYER = 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N'
 
 export const CONTRACT_NAMES = {
-  B2S_TOKEN: 'b2s-token',
+  B2S_TOKEN: 'b2s-token-v4',
   B2S_TOKEN_V4: 'b2s-token-v4',
   STAKING_VAULT: 'b2s-staking-vault-v2',
-  LIQUIDITY_POOL_V5: 'b2s-liquidity-pool-v5',
-  LIQUIDITY_POOL_V6: 'b2s-liquidity-pool-v6',
-  REWARDS_DISTRIBUTOR: 'b2s-rewards-distributor-v3',
+  LIQUIDITY_POOL: 'b2s-liquidity-pool-v6',
+  REWARDS_DISTRIBUTOR: 'b2s-rewards-distributor',
   GOVERNANCE: 'b2s-governance',
   PREDICTION_MARKET: 'b2s-prediction-market',
   PRICE_ORACLE: 'b2s-price-oracle',
-  AIRDROP: 'b2s-airdrop-v2',
+  AIRDROP: 'b2s-airdrop',
   FEE_ROUTER: 'b2s-fee-router',
 } as const
 

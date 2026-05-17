@@ -1,6 +1,6 @@
 /**
  * B2SClient — $B2S Fungible Token (b2s-token-v4.clar)
- * Contract: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token-v4
+ * Contract: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-token-v4
  * Compatible with @stacks/transactions v7+
  */
 
@@ -20,7 +20,7 @@ import {
 } from '@stacks/transactions'
 import { STACKS_MAINNET, STACKS_TESTNET } from '@stacks/network'
 
-export const B2S_CONTRACT_ADDRESS = 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96'
+export const B2S_CONTRACT_ADDRESS = 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N'
 export const B2S_CONTRACT_NAME    = 'b2s-token-v4'
 export const B2S_DECIMALS         = 6
 
