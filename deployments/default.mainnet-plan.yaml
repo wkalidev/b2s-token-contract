@@ -2,61 +2,87 @@
 id: 0
 name: Mainnet deployment
 network: mainnet
-stacks-node: "https://stacks-node-api.mainnet.stacks.co"
+stacks-node: "https://api.mainnet.hiro.so"
 bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
 plan:
   batches:
     - id: 0
       transactions:
-        # Already deployed - do not redeploy
-        #- contract-publish:
-        #    contract-name: b2s-token
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 69920
-        #    path: "contracts\\b2s-token.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        #- contract-publish:
-        #    contract-name: b2s-airdrop
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 12610
-        #    path: "contracts\\b2s-airdrop.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        #- contract-publish:
-        #    contract-name: b2s-liquidity-pool-v6
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 24310
-        #    path: "contracts\\b2s-liquidity-pool-v6.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        #- contract-publish:
-        #    contract-name: b2s-prediction-market
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 62340
-        #    path: "contracts\\b2s-prediction-market.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        #- contract-publish:
-        #    contract-name: b2s-price-oracle
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 18710
-        #    path: "contracts\\b2s-price-oracle.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        #- contract-publish:
-        #    contract-name: b2s-staking-vault
-        #    expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-        #    cost: 17550
-        #    path: "contracts\\b2s-staking-vault.clar"
-        #    anchor-block-only: true
-        #    clarity-version: 2
-        # New deployment
+        - contract-publish:
+            contract-name: b2s-token-v4
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 15730
+            path: "contracts\\b2s-token-v4.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-airdrop
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 20730
+            path: "contracts\\b2s-airdrop.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: toolkit-math
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 33090
+            path: "contracts\\toolkit-math.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-fee-router
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 50880
+            path: "contracts\\b2s-fee-router.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-governance
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 63300
+            path: "contracts\\b2s-governance.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-liquidity-pool-v6
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 23930
+            path: "contracts\\b2s-liquidity-pool-v6.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-prediction-market
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 63500
+            path: "contracts\\b2s-prediction-market.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-price-oracle
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 18710
+            path: "contracts\\b2s-price-oracle.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-rewards-distributor
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 79570
+            path: "contracts\\b2s-rewards-distributor.clar"
+            anchor-block-only: true
+            clarity-version: 2
         - contract-publish:
             contract-name: b2s-staking-vault-v2
-            expected-sender: SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96
-            cost: 17550
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 63520
             path: "contracts\\b2s-staking-vault-v2.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: b2s-staking-vault-v3
+            expected-sender: SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N
+            cost: 62870
+            path: "contracts\\b2s-staking-vault-v3.clar"
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.5"

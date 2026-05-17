@@ -1,4 +1,4 @@
-;; B2S Prediction Market — binary prediction market, 5 categories, 2% platform fee, on-chain resolution
+;; B2S Prediction Market - binary prediction market, 5 categories, 2% platform fee, on-chain resolution
 ;; B2S Prediction Market
 ;; Phase 1: Owner resolve -> Phase 2: DAO vote
 
@@ -96,7 +96,7 @@
     (asserts! (not (get resolved market)) ERR-MARKET-ALREADY-RESOLVED)
     (asserts! (< block-height (get deadline market)) ERR-MARKET-CLOSED)
     (asserts! (>= amount MIN-BET) ERR-INVALID-AMOUNT)
-    (try! (contract-call? .b2s-token transfer amount tx-sender (as-contract tx-sender) none))
+    (try! (contract-call? .b2s-token-v4 transfer amount tx-sender (as-contract tx-sender) none))
     (map-set bets
       { market-id: market-id, bettor: tx-sender }
       {
@@ -157,7 +157,7 @@
         (merge bet { claimed: true })
       )
       (var-set total-platform-fees (+ (var-get total-platform-fees) fee))
-      (try! (as-contract (contract-call? .b2s-token transfer net-payout tx-sender tx-sender none)))
+      (try! (as-contract (contract-call? .b2s-token-v4 transfer net-payout tx-sender tx-sender none)))
       (ok net-payout)
     )
   )
@@ -168,7 +168,7 @@
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-OWNER)
     (asserts! (> fees u0) ERR-INVALID-AMOUNT)
     (var-set total-platform-fees u0)
-    (as-contract (contract-call? .b2s-token transfer fees tx-sender recipient none))
+    (as-contract (contract-call? .b2s-token-v4 transfer fees tx-sender recipient none))
   )
 )
 
@@ -186,6 +186,6 @@
       { market-id: market-id, bettor: tx-sender }
       (merge bet { claimed: true })
     )
-    (as-contract (contract-call? .b2s-token transfer user-total tx-sender tx-sender none))
+    (as-contract (contract-call? .b2s-token-v4 transfer user-total tx-sender tx-sender none))
   )
 )

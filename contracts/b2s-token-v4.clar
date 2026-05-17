@@ -21,7 +21,7 @@
 (define-public (mint (a uint) (r principal))
   (begin (asserts! (is-eq tx-sender o) e1) (ft-mint? b2s-token a r)))
 (define-public (claim-daily-reward)
-  (let ((c tx-sender) (d (/ stacks-block-height u144)))
+  (let ((c tx-sender) (d (/ block-height u144)))
     (asserts! (is-none (map-get? dc { t: c, d: d })) e5)
     (map-set dc { t: c, d: d } { c: true })
     (try! (ft-mint? b2s-token u5000000 c))

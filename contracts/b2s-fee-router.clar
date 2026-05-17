@@ -1,4 +1,4 @@
-;; B2S Fee Router — bridge fee collector, 0.3% fee on all bridges, 50% treasury / 50% stakers
+;; B2S Fee Router - bridge fee collector, 0.3% fee on all bridges, 50% treasury / 50% stakers
 ;; ============================================================
 ;; B2S Fee Router - Bridge Fee Collector
 ;; Contract: b2s-fee-router
@@ -7,7 +7,7 @@
 ;; ============================================================
 
 ;; Toolkit import
-(define-constant TOOLKIT 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.toolkit-math)
+(define-constant TOOLKIT .toolkit-math)
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
@@ -20,8 +20,8 @@
 
 ;; Data vars
 (define-data-var fee-bps uint u30)
-(define-data-var treasury-address principal 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96)
-(define-data-var rewards-pool-address principal 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96)
+(define-data-var treasury-address principal 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N)
+(define-data-var rewards-pool-address principal 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N)
 (define-data-var paused bool false)
 (define-data-var treasury-share-bps uint u5000)
 (define-data-var total-volume-bridged uint u0)
@@ -53,12 +53,12 @@
 ;; Backwards-compatible calculate-fee with optional user parameter
 ;; Old callers: (calculate-fee u1000) - uses tx-sender
 ;; New callers: (calculate-fee u1000 some-principal) - uses specified user
-(define-read-only (calculate-fee (amount uint) (user (optional principal)))
+(define-public (calculate-fee (amount uint) (user (optional principal)))
   (let (
     (actual-user (default-to tx-sender user))
     (user-fee-bps (get-user-fee-bps actual-user))
   )
-    (unwrap-panic (contract-call? TOOLKIT basis-points amount user-fee-bps))
+    (ok (unwrap-panic (contract-call? TOOLKIT basis-points amount user-fee-bps)))
   )
 )
 
@@ -79,7 +79,7 @@
   )
 )
 
-;; record-bridge — uses toolkit for all fee math
+;; record-bridge - uses toolkit for all fee math
 (define-public (record-bridge (amount uint))
   (let (
     (sender tx-sender)

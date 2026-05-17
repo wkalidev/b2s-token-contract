@@ -4,7 +4,7 @@
 (define-constant FEE-NUM u9975)
 (define-constant FEE-DENOM u10000)
 (define-constant USDCX 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.tokensoft-token)
-(define-constant B2S 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token)
+(define-constant B2S .b2s-token-v4)
 (define-data-var r-b2s-stx-b uint u0)
 (define-data-var r-b2s-stx-s uint u0)
 (define-data-var r-b2s-ux-b uint u0)

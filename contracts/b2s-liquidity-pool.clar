@@ -6,7 +6,7 @@
 ;; =============================================================================
 
 (define-constant contract-owner tx-sender)
-(define-constant TOOLKIT 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.toolkit-math)
+(define-constant TOOLKIT 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.toolkit-math)
 
 ;; Error codes
 (define-constant err-not-authorized         (err u401))
@@ -38,7 +38,7 @@
 })
 
 ;; =============================================================================
-;; Private helpers — all math via toolkit
+;; Private helpers - all math via toolkit
 ;; =============================================================================
 
 (define-private (min-uint (a uint) (b uint))

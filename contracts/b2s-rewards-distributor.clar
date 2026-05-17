@@ -220,4 +220,4 @@
 )
 
 (define-private (emit-event (event-type (string-ascii 32)) (staker principal) (amount uint))
-  (print { "event": event-type, "staker": staker, "amount": amount }))
+  (print { event: event-type, staker: staker, amount: amount }))

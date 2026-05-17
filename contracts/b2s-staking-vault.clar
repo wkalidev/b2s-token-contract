@@ -1,7 +1,7 @@
 (define-constant ERR-ZERO (err u100))
 (define-constant ERR-NOT-FOUND (err u101))
 (define-constant ERR-LOCKED (err u102))
-(define-constant B2S 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token)
+(define-constant B2S 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-token)
 (define-map vaults principal { amount: uint, locked-at: uint, lock-blocks: uint, multiplier: uint })
 (define-data-var total-staked uint u0)
 (define-data-var total-vaults uint u0)

@@ -253,7 +253,7 @@
   )
 )
 
-;; Initialize — mint 400M to owner
+;; Initialize - mint 400M to owner
 (begin
   (try! (ft-mint? b2s-token u400000000000000 contract-owner))
 )

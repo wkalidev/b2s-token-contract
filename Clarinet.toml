@@ -6,46 +6,61 @@ telemetry = false
 cache_dir = "./.cache"
 requirements = []
 
+[repl]
+costs_version = 2
+parser_version = 2
+
+[contracts.toolkit-math]
+path = "contracts/toolkit-math.clar"
+clarity_version = 2
+epoch = 2.5
+
 [contracts.b2s-token-v4]
 path = "contracts/b2s-token-v4.clar"
 clarity_version = 2
 epoch = 2.5
 
-[repl]
-costs_version = 2
-parser_version = 2
-
-[contracts.b2s-prediction-market]
-path = "contracts/b2s-prediction-market.clar"
-clarity_version = 2
-epoch = "2.5"
-
-[contracts.b2s-staking-vault]
-path = "contracts/b2s-staking-vault.clar"
-clarity_version = 2
-epoch = "2.5"
-
-[contracts.b2s-airdrop]
-path = "contracts/b2s-airdrop.clar"
-clarity_version = 2
-epoch = "2.5"
-
 [contracts.b2s-price-oracle]
 path = "contracts/b2s-price-oracle.clar"
 clarity_version = 2
-epoch = "2.5"
-
-[contracts.b2s-liquidity-pool-v6]
-path = "contracts/b2s-liquidity-pool-v6.clar"
-clarity_version = 2
-epoch = "2.5"
+epoch = 2.5
 
 [contracts.b2s-staking-vault-v2]
 path = "contracts/b2s-staking-vault-v2.clar"
 clarity_version = 2
-epoch = "2.5"
+epoch = 2.5
+
+[contracts.b2s-staking-vault-v3]
+path = "contracts/b2s-staking-vault-v3.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.b2s-liquidity-pool-v6]
+path = "contracts/b2s-liquidity-pool-v6.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.b2s-governance]
+path = "contracts/b2s-governance.clar"
+clarity_version = 2
+epoch = 2.5
 
 [contracts.b2s-fee-router]
 path = "contracts/b2s-fee-router.clar"
 clarity_version = 2
-epoch = "2.5"
+epoch = 2.5
+
+[contracts.b2s-rewards-distributor]
+path = "contracts/b2s-rewards-distributor.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.b2s-prediction-market]
+path = "contracts/b2s-prediction-market.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.b2s-airdrop]
+path = "contracts/b2s-airdrop.clar"
+clarity_version = 2
+epoch = 2.5

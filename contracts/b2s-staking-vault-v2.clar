@@ -1,4 +1,4 @@
-;; B2S Staking Vault v2 — stake $B2S tokens, 12.5% base APY, multipliers 1x/1.5x/2x/3x
+;; B2S Staking Vault v2 - stake $B2S tokens, 12.5% base APY, multipliers 1x/1.5x/2x/3x
 ;; ============================================================
 ;; B2S Staking Vault v2
 ;; Contract: b2s-staking-vault-v2
@@ -7,8 +7,8 @@
 ;; ============================================================
 
 ;; Toolkit import
-(define-constant TOOLKIT 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.toolkit-math)
-(define-constant B2S     'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token)
+(define-constant TOOLKIT .toolkit-math)
+(define-constant B2S     .b2s-token-v4)
 
 ;; Constants
 (define-constant ERR-ZERO      (err u100))
@@ -65,7 +65,7 @@
 ;; ============================================================
 
 ;; Base APY = 12.5% = 1250 bps
-(define-read-only (get-pending-rewards (user principal))
+(define-public (get-pending-rewards (user principal))
   (match (map-get? vaults user)
     vault
     (let (
