@@ -36,18 +36,21 @@ pnpm add @wkalidev/b2s-contracts
 
 ## Deployed Contracts (Stacks Mainnet)
 
-**Deployer:** `SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96`
+**Deployer:** `SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N`
 
 | Contract | Name | Description |
 |----------|------|-------------|
 | `b2s-token-v4` | $B2S Token | SIP-010 fungible token, 6 decimals |
 | `b2s-staking-vault-v2` | Staking Vault | 12.5–37.5% APY with lock multipliers |
+| `b2s-staking-vault-v3` | Staking Vault v3 | Latest staking vault |
 | `b2s-liquidity-pool-v6` | AMM Pool | Constant product AMM, 0.25% fee |
-| `b2s-rewards-distributor-v3` | Rewards | 5 B2S daily claim |
+| `b2s-rewards-distributor` | Rewards | 5 B2S daily claim |
 | `b2s-governance` | DAO | On-chain proposals & voting |
 | `b2s-fee-router` | Fee Router | Bridge fee collection & distribution |
 | `b2s-prediction-market` | Prediction | AMM-style prediction markets |
-| `b2s-price-oracle` | Oracle | Clarity 4 price feeds |
+| `b2s-price-oracle` | Oracle | On-chain price feeds |
+| `b2s-airdrop` | Airdrop | Token airdrop distribution |
+| `toolkit-math` | Math | Safe Clarity arithmetic |
 
 ---
 
@@ -60,11 +63,11 @@ import { CONTRACTS, CONTRACT_NAMES, getContractId } from '@wkalidev/b2s-contract
 
 // Full contract IDs
 console.log(CONTRACTS['b2s-token-v4'])
-// → 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-token-v4'
+// → 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-token-v4'
 
 // Get any contract ID
 const stakingId = getContractId(CONTRACT_NAMES.STAKING_VAULT)
-// → 'SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-staking-vault-v2'
+// → 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-staking-vault-v2'
 ```
 
 ### Read $B2S balance
@@ -140,7 +143,7 @@ import {
 formatB2S(5_000_000n)              // → '5.000000 B2S'
 blocksToDuration(2100)             // → '~14d 0h'
 isValidStacksAddress('SP1ABC...') // → true
-truncateAddress('SP936YWJ...RQ96') // → 'SP936Y...R96'
+truncateAddress('SP1V725...BQ5N') // → 'SP1V72...Q5N'
 ```
 
 ---
@@ -198,4 +201,4 @@ MIT — © 2026 [wkalidev](https://github.com/wkalidev)
 
 ---
 
-**Built for [#StacksBuilderRewards](https://stacks.org) April 2026 🏆**
+**Built for [#StacksBuilderRewards](https://stacks.org) May 2026 🏆**
