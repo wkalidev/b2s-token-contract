@@ -1,6 +1,6 @@
 {
   "name": "@wkalidev/b2s-contracts",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "$B2S Token — Smart Contracts & TypeScript SDK for Base2Stacks DeFi on Stacks mainnet",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -56,11 +56,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wkalidev/b2s-token-contract.git"
+    "url": "git+https://github.com/wkalidev/base2stacks-tracker.git"
   },
   "homepage": "https://base2stacks-tracker.vercel.app",
   "bugs": {
-    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
+    "url": "https://github.com/wkalidev/base2stacks-tracker/issues"
   },
   "dependencies": {
     "@stacks/transactions": "^7.3.1",
