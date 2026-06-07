@@ -69,6 +69,57 @@ export interface PriceFeed {
   lastUpdateBlock: number
 }
 
+// Agent v3 types
+export interface CheckinStreak {
+  currentStreak: number
+  bestStreak:    number
+  lastCheckin:   number
+  totalCheckins: number
+}
+
+export interface AgentGlobalStats {
+  totalCheckins: number
+  totalFees:     number
+  currentDay:    number
+}
+
+export interface AgentAction {
+  actionType: string
+  amount:     number
+  tokenIn:    string
+  tokenOut:   string
+  status:     string
+  block:      number
+}
+
+// Quest types
+export interface QuestAttempt {
+  guess:     number
+  bet:       number
+  token:     number
+  won:       boolean
+  claimed:   boolean
+  timestamp: number
+}
+
+export interface PlayerStats {
+  totalPlayed:   number
+  totalWon:      number
+  bestStreak:    number
+  currentStreak: number
+  lastPlayed:    number
+}
+
+export interface DailyPuzzle {
+  puzzleType:    string
+  tolerance:     number
+  rewardPoolStx: bigint
+  rewardPoolB2s: bigint
+  revealed:      boolean
+  startBlock:    number
+  endBlock:      number
+}
+
 export type Result<T, E = Error> =
   | { ok: true; value: T }
   | { ok: false; error: E }
