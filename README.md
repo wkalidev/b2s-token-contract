@@ -12,13 +12,13 @@
 
 ## Why this SDK?
 
-If you're building on **Stacks** and need to interact with $B2S DeFi contracts (token, staking, liquidity pool, governance, prediction markets), this SDK gives you:
+If you're building on **Stacks** and need to interact with $B2S DeFi contracts (token, staking, liquidity pool, governance, prediction markets, agent check-in), this SDK gives you:
 
-- ✅ All mainnet **contract addresses** in one place — no more copy-pasting
-- ✅ **TypeScript-first** — full type definitions included
-- ✅ **Tree-shakeable** — ESM + CJS, import only what you need
-- ✅ **Helper functions** — AMM swap math, APY calculator, address utils
-- ✅ **Client classes** — `B2SClient`, `RewardsClient`, `OracleClient` ready to use
+- All mainnet **contract addresses** in one place — no more copy-pasting
+- **TypeScript-first** — full type definitions included
+- **Tree-shakeable** — ESM + CJS, import only what you need
+- **Helper functions** — AMM swap math, APY calculator, address utils
+- **Client classes** — `B2SClient`, `RewardsClient`, `OracleClient`, `AgentClient`, `QuestClient`
 
 ---
 
@@ -50,6 +50,8 @@ pnpm add @wkalidev/b2s-contracts
 | `b2s-prediction-market` | Prediction | AMM-style prediction markets |
 | `b2s-price-oracle` | Oracle | On-chain price feeds |
 | `b2s-airdrop` | Airdrop | Token airdrop distribution |
+| `stacks-quest-v2` | Quest Game | Daily on-chain puzzle game |
+| `stacks-quest-agent-v3` | Agent | Daily check-in + action log |
 | `toolkit-math` | Math | Safe Clarity arithmetic |
 
 ---
@@ -61,11 +63,9 @@ pnpm add @wkalidev/b2s-contracts
 ```typescript
 import { CONTRACTS, CONTRACT_NAMES, getContractId } from '@wkalidev/b2s-contracts/contracts'
 
-// Full contract IDs
 console.log(CONTRACTS['b2s-token-v4'])
 // → 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-token-v4'
 
-// Get any contract ID
 const stakingId = getContractId(CONTRACT_NAMES.STAKING_VAULT)
 // → 'SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-staking-vault-v2'
 ```
@@ -75,10 +75,61 @@ const stakingId = getContractId(CONTRACT_NAMES.STAKING_VAULT)
 ```typescript
 import { B2SClient } from '@wkalidev/b2s-contracts'
 
-const client = new B2SClient() // defaults to mainnet
-
+const client = new B2SClient()
 const { formatted } = await client.getBalance('SP1ABC...XYZ')
 console.log(`Balance: ${formatted} B2S`)
+```
+
+### Agent — Daily check-in & streaks
+
+```typescript
+import { AgentClient } from '@wkalidev/b2s-contracts'
+
+const agent = new AgentClient()
+
+// Get user streak
+const streak = await agent.getStreak('SP1ABC...XYZ')
+console.log(`Streak: ${streak.currentStreak} days`)
+console.log(`Best: ${streak.bestStreak} days`)
+
+// Check if user checked in today
+const checkedIn = await agent.hasCheckedInToday('SP1ABC...XYZ')
+console.log(`Checked in today: ${checkedIn}`)
+
+// Get check-in fee (in microSTX)
+const fee = await agent.getCheckinFee()
+console.log(`Fee: ${fee / 1_000_000} STX`)
+
+// Global stats
+const stats = await agent.getGlobalStats()
+console.log(`Total check-ins: ${stats.totalCheckins}`)
+console.log(`Total fees collected: ${stats.totalFees} microSTX`)
+```
+
+### Quest — Daily puzzle game
+
+```typescript
+import { QuestClient } from '@wkalidev/b2s-contracts'
+
+const quest = new QuestClient()
+
+// Get player stats
+const stats = await quest.getPlayerStats('SP1ABC...XYZ')
+console.log(`Games played: ${stats.totalPlayed}`)
+console.log(`Games won: ${stats.totalWon}`)
+console.log(`Current streak: ${stats.currentStreak}`)
+
+// Check if player already played today
+const played = await quest.hasPlayedToday('SP1ABC...XYZ')
+console.log(`Played today: ${played}`)
+
+// Get today's puzzle type
+const puzzle = await quest.getTodayPuzzle()
+console.log(`Today's puzzle: ${puzzle?.puzzleType}`)
+
+// Global stats
+const global = await quest.getGlobalStats()
+console.log(`Total games: ${global.totalGames}`)
 ```
 
 ### AMM swap calculation
@@ -86,19 +137,15 @@ console.log(`Balance: ${formatted} B2S`)
 ```typescript
 import { calcSwapOutput, calcEffectiveApy, calcBridgeFee } from '@wkalidev/b2s-contracts/helpers'
 
-// Calculate swap output (no RPC call needed)
 const { amountOut, fee, priceImpact } = calcSwapOutput(
-  1_000_000n,   // 1 B2S in
-  50_000_000n,  // reserve B2S
-  10_000_000n,  // reserve STX
+  1_000_000n,
+  50_000_000n,
+  10_000_000n,
 )
 
-// APY based on lock duration
 calcEffectiveApy(2100) // → 37.5%
-calcEffectiveApy(1050) // → 25%
 calcEffectiveApy(0)    // → 12.5%
 
-// Bridge fee breakdown
 const { totalFeeMicro, toTreasury, toStakers } = calcBridgeFee(1_000_000_000n)
 ```
 
@@ -108,12 +155,8 @@ const { totalFeeMicro, toTreasury, toStakers } = calcBridgeFee(1_000_000_000n)
 import { RewardsClient } from '@wkalidev/b2s-contracts'
 
 const rewards = new RewardsClient()
-
 const pending = await rewards.getPendingRewards('SP1ABC...XYZ')
 console.log(`Pending: ${pending.formatted} B2S`)
-
-const info = await rewards.getStakerInfo('SP1ABC...XYZ')
-console.log(`Staked: ${info?.stakedFormatted} B2S`)
 ```
 
 ### Price oracle
@@ -132,12 +175,8 @@ console.log(`STX price: $${price}`)
 
 ```typescript
 import {
-  toMicroUnits,
-  fromMicroUnits,
-  formatB2S,
-  blocksToDuration,
-  isValidStacksAddress,
-  truncateAddress,
+  toMicroUnits, fromMicroUnits, formatB2S,
+  blocksToDuration, isValidStacksAddress, truncateAddress,
 } from '@wkalidev/b2s-contracts/helpers'
 
 formatB2S(5_000_000n)              // → '5.000000 B2S'
@@ -152,14 +191,10 @@ truncateAddress('SP1V725...BQ5N') // → 'SP1V72...Q5N'
 
 ```typescript
 import type {
-  TokenBalance,
-  StakePosition,
-  PoolReserves,
-  SwapQuote,
-  BridgeTransaction,
-  Proposal,
-  ClaimRecord,
-  PriceFeed,
+  TokenBalance, StakePosition, PoolReserves, SwapQuote,
+  BridgeTransaction, Proposal, ClaimRecord, PriceFeed,
+  CheckinStreak, AgentGlobalStats, AgentAction,
+  QuestAttempt, PlayerStats, DailyPuzzle,
   Result,
 } from '@wkalidev/b2s-contracts/types'
 ```
@@ -176,20 +211,26 @@ npm run build
 npm test
 ```
 
-### Clarity contracts
+---
 
-```bash
-clarinet check   # type-check contracts
-clarinet test    # run contract tests
-```
+## Live Apps
+
+- **[base2stacks-tracker.vercel.app](https://base2stacks-tracker.vercel.app)** — Full DeFi protocol
+- **[stacks-quest-ten.vercel.app](https://stacks-quest-ten.vercel.app)** — Daily puzzle game
+- **[stacks-quest-ten.vercel.app/agent](https://stacks-quest-ten.vercel.app/agent)** — Non-custodial AI agent
 
 ---
 
-## Live App
+## Changelog
 
-**[base2stacks-tracker.vercel.app](https://base2stacks-tracker.vercel.app)** — the full DeFi dApp using this SDK on Stacks mainnet.
+### v1.3.0
+- Added `AgentClient` — streak, check-in, global stats
+- Added `QuestClient` — player stats, puzzle, game stats
+- New types: `CheckinStreak`, `AgentGlobalStats`, `PlayerStats`, `DailyPuzzle`
 
----
+### v1.2.3
+- `B2SClient`, `RewardsClient`, `OracleClient`, `FeeRouterClient`
+- AMM math helpers, APY calculator, bridge fee calculator
 
 ## Contributing
 
@@ -201,4 +242,4 @@ MIT — © 2026 [wkalidev](https://github.com/wkalidev)
 
 ---
 
-**Built for [#StacksBuilderRewards](https://stacks.org) April 2026 🏆**
+**Built for [#StacksBuilderRewards](https://stacks.org) 2026**
