@@ -14,6 +14,7 @@ export { FeeRouterClient } from './fee-router'
 
 // Agent + Quest (new in v1.3.0)
 export { AgentClient, QuestClient } from './agent'
+export type { AgentCard } from './agent'
 
 // Contracts registry
 export { DEPLOYER, CONTRACT_NAMES, CONTRACTS, getLockMultiplier, getContractId } from './contracts'
