@@ -223,6 +223,10 @@ npm test
 
 ## Changelog
 
+### v1.3.1
+- Fixed `repository` field in package.json to point to correct repo
+- Build cleanup and dependency consistency
+
 ### v1.3.0
 - Added `AgentClient` — streak, check-in, global stats
 - Added `QuestClient` — player stats, puzzle, game stats

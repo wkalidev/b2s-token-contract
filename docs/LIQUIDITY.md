@@ -1,7 +1,7 @@
-# Liquidity Pool Documentation
+﻿# Liquidity Pool Documentation
 
 ## Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-liquidity-pool-v5
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-liquidity-pool-v5
 
 ## Formula
 Constant product: x * y = k

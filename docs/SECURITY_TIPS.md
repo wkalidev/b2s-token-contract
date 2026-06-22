@@ -1,4 +1,4 @@
-# Security Tips for Users
+﻿# Security Tips for Users
 
 ## Wallet Security
 - Never share your seed phrase
@@ -17,4 +17,4 @@
 
 ## Verified Contracts
 Only interact with:
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.*
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.*

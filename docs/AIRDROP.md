@@ -1,7 +1,7 @@
-# Airdrop Guide
+﻿# Airdrop Guide
 
 ## Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-airdrop-v2
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-airdrop-v2
 
 ## Eligibility
 - Early adopters (first 100 users)

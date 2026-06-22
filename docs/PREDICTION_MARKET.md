@@ -1,7 +1,7 @@
-# Prediction Market
+﻿# Prediction Market
 
 ## Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-prediction-market
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-prediction-market
 
 ## How it works
 1. Admin creates prediction question

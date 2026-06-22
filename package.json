@@ -56,11 +56,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wkalidev/base2stacks-tracker.git"
+    "url": "git+https://github.com/wkalidev/b2s-token-contract.git"
   },
-  "homepage": "https://base2stacks-tracker.vercel.app",
+  "homepage": "https://www.npmjs.com/package/@wkalidev/b2s-contracts",
   "bugs": {
-    "url": "https://github.com/wkalidev/base2stacks-tracker/issues"
+    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
   },
   "dependencies": {
     "@stacks/transactions": "^7.3.1",

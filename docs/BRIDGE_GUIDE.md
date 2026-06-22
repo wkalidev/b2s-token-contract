@@ -1,4 +1,4 @@
-# Bridge Guide
+﻿# Bridge Guide
 
 ## Supported Bridges
 - deBridge: https://app.debridge.com/r/32893
@@ -12,7 +12,7 @@
 4. Enter amount and confirm
 
 ## Fee Router Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-fee-router
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-fee-router
 - Default fee: 0.3%
 - High volume (100 B2S): 0.25%
 - Very high volume (1000 B2S): 0.2%

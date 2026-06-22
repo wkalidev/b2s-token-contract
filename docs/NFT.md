@@ -1,10 +1,10 @@
-# NFT Badges Documentation
+﻿# NFT Badges Documentation
 
 ## Standard
 SIP-009 compliant NFT
 
 ## Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-badges
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-badges
 
 ## Badge Types
 - Bronze Staker (Common)

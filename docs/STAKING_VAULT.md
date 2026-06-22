@@ -1,7 +1,7 @@
-# Staking Vault v2 Guide
+﻿# Staking Vault v2 Guide
 
 ## Contract
-SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96.b2s-staking-vault-v2
+SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N.b2s-staking-vault-v2
 
 ## Lock Periods & Multipliers
 | Period   | Blocks | Multiplier | APY    |
