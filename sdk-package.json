@@ -1,0 +1,46 @@
+{
+  "name": "@wkalidev/b2s-sdk",
+  "version": "1.2.0",
+  "description": "Base2Stacks DeFi smart contract addresses for Stacks Mainnet — lightweight, no build step",
+  "type": "commonjs",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types":   "./index.d.ts",
+      "import":  "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.mjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "stacks",
+    "clarity",
+    "defi",
+    "b2s",
+    "base2stacks",
+    "sip010",
+    "smart-contracts",
+    "bitcoin",
+    "web3",
+    "typescript"
+  ],
+  "author": "wkalidev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wkalidev/b2s-token-contract.git"
+  },
+  "homepage": "https://www.npmjs.com/package/@wkalidev/b2s-sdk",
+  "bugs": {
+    "url": "https://github.com/wkalidev/b2s-token-contract/issues"
+  }
+}

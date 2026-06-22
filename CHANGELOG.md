@@ -1,5 +1,25 @@
 # Changelog
 
+## [@wkalidev/b2s-sdk 1.2.0] - 2026-06-22
+
+### Fixed
+- **Critical:** Deployer address corrected to `SP1V72500C63KN9E348QDK9X879MASSTN0J3KBQ5N` (v1.1.0 published with wrong address `SP936YWJPST8GB8FFRCN7CC6P2YR5K6NNBAARQ96`)
+- `exports` map now includes `"types"` condition for TypeScript consumers
+- `main` field corrected to `./index.js` (was pointing to non-existent `dist/contracts.cjs`)
+
+### Changed
+- Removed stale contracts: `b2s-token` (superseded by v4), `b2s-liquidity-pool-v5` (superseded by v6), `b2s-airdrop-v2` (renamed)
+
+### Added
+- `b2s-staking-vault-v3` — latest staking vault
+- `b2s-fee-router` — bridge fee collection, 0.3%
+- `b2s-marketplace` — NFT badge marketplace, 2.5% fee
+- `b2s-rewards-distributor` — daily reward distribution
+- `stacks-quest-v2` — daily puzzle game
+- `stacks-quest-agent-v3` — daily check-in with streak tracking
+- `toolkit-math` — safe Clarity arithmetic
+- `ContractName` type export in `index.d.ts`
+
 ## [1.1.0] - 2026-03-22
 
 ### Added
